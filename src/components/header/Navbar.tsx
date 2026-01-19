@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -6,9 +8,45 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+
+const navItems = [
+  { text: "Home", path: "/" },
+  { text: "Stocks", path: "/stocks" },
+  { text: "Crypto", path: "/crypto" },
+];
 
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        Wealthy
+      </Typography>
+      <Divider />
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }} component={Link} to={item.path}>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -19,39 +57,42 @@ function Navbar() {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            //onClick={}
+            onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          ></IconButton>
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            Wealthy
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {/* {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+          <Box sx={{ flexGrow: 2, display: { xs: "none", sm: "flex" }, justifyContent: "right" }}>
+            {navItems.map((item) => (
+              <Button key={item.text} sx={{ color: '#fff' }} component={Link} to={item.path}>
+                {item.text}
               </Button>
-            ))} */}
+            ))}
           </Box>
         </Toolbar>
       </AppBar>
       <nav>
         <Drawer
-          //container={}
           variant="temporary"
-          //open={}
-          //onClose={}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box" },
+            "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
           }}
-        ></Drawer>
+        >
+          {drawer}
+        </Drawer>
       </nav>
     </Box>
   );
