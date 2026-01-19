@@ -6,6 +6,7 @@ import Stocks from './components/stocks/Stocks'
 import Crypto from './components/crypto/Crypto'
 
 function App() {
+  //TODO: Fix the colours
   return (
     <BrowserRouter>
     <Navbar/>
