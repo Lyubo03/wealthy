@@ -85,12 +85,12 @@ function Stocks() {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography variant="h6" component="div" sx={{mr:10}}>
+                  <Typography variant="h6" component="div" sx={{mr: 23}}>
                     {stock.symbol}
                   </Typography>
                   <Box display="flex" alignItems="center">
                     <Typography variant="h5" component="div" sx={{ mr: 10 }}>
-                      ${stock.price}
+                      ${stock.price !== undefined ? stock.price.toFixed(2) : "N/A"}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -98,7 +98,7 @@ function Stocks() {
                       sx={{ mr: 2, ml: 10 }}
                     >
                       {stock.change >= 0 ? "+" : ""}
-                      {stock.change}%
+                      {stock.change !== undefined ? stock.change.toFixed(3) : "N/A"}%
                     </Typography>
                     <IconButton
                       size="small"

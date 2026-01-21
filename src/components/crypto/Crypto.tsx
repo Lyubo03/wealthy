@@ -76,14 +76,14 @@ function Crypto() {
                   </Typography>
                   <Box display="flex" alignItems="center">
                     <Typography variant="h5" component="div" sx={{ mr: 10, ml:10 }}>
-                      ${crypto.price.toFixed(2)}
+                      ${crypto.price !== undefined ? crypto.price.toFixed(2) : "N/A"}
                     </Typography>
                     <Typography
                       variant="body2"
                       color={crypto.change >= 0 ? 'success.main' : 'error.main'}
                       sx={{ mr: 2, ml:10 }}
                     >
-                      {crypto.change >= 0 ? '+' : ''}{crypto.change}%
+                      {crypto.change >= 0 ? '+' : ''}{crypto.change !== undefined ? crypto.change.toFixed(3) : "N/A"}%
                     </Typography>
                     <IconButton size="small" onClick={() => toggleFavorite(crypto.symbol)}>
                       {favorites.includes(crypto.symbol) ? (
