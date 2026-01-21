@@ -4,6 +4,7 @@ import Navbar from './components/header/Navbar'
 import Home from './components/home/Home'
 import Stocks from './components/stocks/Stocks'
 import Crypto from './components/crypto/Crypto'
+import Favorites from './components/favorites/Favorites'
 
 function App() {
   //TODO: Fix the colours
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/stocks" element={<Stocks />} />
         <Route path="/crypto" element={<Crypto />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
       </BrowserRouter>
   )

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import {
@@ -7,13 +6,9 @@ import {
   Typography,
   Grid,
   Box,
-  IconButton,
 } from '@mui/material';
-import { FetchAssetPrice } from '../../services/finnhubClient';
+import { FetchAssetPrices } from '../../services/finnhubClient';
 import type { AssetDTO } from '../../models/API/AssetDTO';
-import { AssetType } from '../../common/enums/AssetType';
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import StarIcon from '@mui/icons-material/Star';
 import { useFavorites } from '../../contexts/FavoritesContext';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -28,20 +23,22 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-function Crypto() {
-  const [cryptoData, setCryptoData] = useState<AssetDTO[]>([]);
+function Favorites() {
+  const [favoritesData, setFavoritesData] = useState<AssetDTO[]>([]);
   const [loading, setLoading] = useState(true);
-  const { favorites, toggleFavorite } = useFavorites();
+  const { favorites } = useFavorites();
 
-  //TODO: Reaload on every n minutes
-  //see what is going to happen without loading state
   useEffect(() => {
     const fetchData = async () => {
+      if (favorites.length === 0) {
+        setLoading(false);
+        return;
+      }
       try {
-        const data = await FetchAssetPrice(AssetType.CRYPTO);
-        setCryptoData(data);
+        const data = await FetchAssetPrices(favorites);
+        setFavoritesData(data);
       } catch (error) {
-        console.error('Error fetching crypto data:', error);
+        console.error('Error fetching favorites data:', error);
       } finally {
         setLoading(false);
       }
@@ -49,10 +46,10 @@ function Crypto() {
 
     fetchData();
 
-    const interval = setInterval(fetchData, 10000); // Refetch every 15 seconds
+    const interval = setInterval(fetchData, 30000); // Refetch every 30 seconds
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+    return () => clearInterval(interval);
+  }, [favorites]);
 
   if (loading) {
     return (
@@ -62,38 +59,42 @@ function Crypto() {
     );
   }
 
+  if (favorites.length === 0) {
+    return (
+      <Box sx={{ flexGrow: 1, p: 0.5 }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4, mb: 3 }}>
+          Favorite Assets
+        </Typography>
+        <Typography variant="body1">No favorites selected yet.</Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ flexGrow: 1, p: 0.5 }}>
       <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4, mb: 3 }}>
-        Crypto Prices
+        Favorite Assets
       </Typography>
       <Grid container spacing={1} direction="column">
-        {cryptoData.map((crypto) => (
-          <Grid key={crypto.symbol}>
+        {favoritesData.map((asset) => (
+          <Grid key={asset.symbol}>
             <StyledCard>
               <CardContent sx={{ flexGrow: 1 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h6" component="div">
-                    {crypto.symbol}
+                    {asset.symbol}
                   </Typography>
                   <Box display="flex" alignItems="center">
                     <Typography variant="h5" component="div" sx={{ mr: 2 }}>
-                      ${crypto.price}
+                      ${asset.price}
                     </Typography>
                     <Typography
                       variant="body2"
-                      color={crypto.change >= 0 ? 'success.main' : 'error.main'}
+                      color={asset.change >= 0 ? 'success.main' : 'error.main'}
                       sx={{ mr: 2 }}
                     >
-                      {crypto.change >= 0 ? '+' : ''}{crypto.change}%
+                      {asset.change >= 0 ? '+' : ''}{asset.change}%
                     </Typography>
-                    <IconButton size="small" onClick={() => toggleFavorite(crypto.symbol)}>
-                      {favorites.includes(crypto.symbol) ? (
-                        <StarIcon sx={{ color: 'warning.main' }} />
-                      ) : (
-                        <StarBorderOutlinedIcon />
-                      )}
-                    </IconButton>
                   </Box>
                 </Box>
               </CardContent>
@@ -105,4 +106,4 @@ function Crypto() {
   );
 }
 
-export default Crypto;
+export default Favorites;
