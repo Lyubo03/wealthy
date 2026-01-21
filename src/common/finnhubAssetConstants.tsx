@@ -1,0 +1,47 @@
+export const CryptoSymbolsArr: string[] = [
+  "BINANCE:BTCUSDT",
+  "BINANCE:ETHUSDT",
+  "BINANCE:BNBUSDT",
+  "BINANCE:XRPUSDT",
+  "BINANCE:ADAUSDT",
+  "BINANCE:SOLUSDT",
+  "BINANCE:DOGEUSDT",
+  "BINANCE:DOTUSDT",
+  "BINANCE:LTCUSDT",
+];
+
+export const StockSymbolsArr: string[] = [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "AMZN",
+  "TSLA",
+  "FB",
+  "NVDA",
+  "JPM",
+  "V",
+  "DIS",
+];
+
+export const FinnhubSymbolToWealthySymbolMap: { [key: string]: string } = {
+  "BINANCE:BTCUSDT": "BTC",
+  "BINANCE:ETHUSDT": "ETH",
+  "BINANCE:BNBUSDT": "BNB",
+  "BINANCE:XRPUSDT": "XRP",
+  "BINANCE:ADAUSDT": "ADA",
+  "BINANCE:SOLUSDT": "SOL",
+  "BINANCE:DOGEUSDT": "DOGE",
+  "BINANCE:DOTUSDT": "DOT",
+  "BINANCE:MATICUSDT": "MATIC",
+  "BINANCE:LTCUSDT": "LTC",
+  AAPL: "AAPL",
+  MSFT: "MSFT",
+  GOOGL: "GOOGL",
+  AMZN: "AMZN",
+  TSLA: "TSLA",
+  FB: "META",
+  NVDA: "NVDA",
+  JPM: "JPM",
+  V: "V",
+  DIS: "DIS",
+};

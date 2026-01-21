@@ -21,6 +21,7 @@ const navItems = [
   { text: "Home", path: "/" },
   { text: "Stocks", path: "/stocks" },
   { text: "Crypto", path: "/crypto" },
+  { text: "Favorites", path: "/favorites" },
 ];
 
 function Navbar() {
@@ -32,7 +33,7 @@ function Navbar() {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2 }} component={Link} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         Wealthy
       </Typography>
       <Divider />
@@ -64,8 +65,9 @@ function Navbar() {
           </IconButton>
           <Typography
             variant="h6"
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            component={Link}
+            to="/"
+            sx={{ display: { xs: "none", sm: "block" }, textDecoration: 'none', color: 'inherit' }}
           >
             Wealthy
           </Typography>
