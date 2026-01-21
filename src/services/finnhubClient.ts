@@ -5,10 +5,6 @@ import {
 } from "../common/finnhubAssetConstants";
 import type { AssetDTO } from "../models/API/AssetDTO";
 
-//TODO: Think about separating on two interfaces for better scalability
-//Should they be two with diff methods or one with a param to specify which to fetch?
-//Think of the error handling strategy as well
-//implement semaphore to limit concurrent requests if needed and try fetch them in parallel batches
 export async function FetchAssetPrice(assetType: AssetType) {
   const results: AssetDTO[] = [];
   const symbols = extractInvocationType(assetType);

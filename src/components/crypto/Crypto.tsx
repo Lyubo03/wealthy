@@ -33,8 +33,6 @@ function Crypto() {
   const [loading, setLoading] = useState(true);
   const { favorites, toggleFavorite } = useFavorites();
 
-  //TODO: Reaload on every n minutes
-  //see what is going to happen without loading state
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,7 +47,7 @@ function Crypto() {
 
     fetchData();
 
-    const interval = setInterval(fetchData, 10000); // Refetch every 15 seconds
+    const interval = setInterval(fetchData, 10000); // Refetch every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -73,17 +71,17 @@ function Crypto() {
             <StyledCard>
               <CardContent sx={{ flexGrow: 1 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Typography variant="h6" component="div">
+                  <Typography variant="h6" component="div" sx={{ mr: '10' }}>
                     {crypto.symbol}
                   </Typography>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h5" component="div" sx={{ mr: 2 }}>
-                      ${crypto.price}
+                    <Typography variant="h5" component="div" sx={{ mr: 10, ml:10 }}>
+                      ${crypto.price.toFixed(2)}
                     </Typography>
                     <Typography
                       variant="body2"
                       color={crypto.change >= 0 ? 'success.main' : 'error.main'}
-                      sx={{ mr: 2 }}
+                      sx={{ mr: 2, ml:10 }}
                     >
                       {crypto.change >= 0 ? '+' : ''}{crypto.change}%
                     </Typography>

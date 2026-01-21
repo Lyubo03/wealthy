@@ -14,7 +14,7 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 function Home() {
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
+    <Container maxWidth="lg" sx={{ py: 10 }}>
       {/* Hero Section */}
       <Box textAlign="center" sx={{ mb: 8 }}>
         <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'primary.main' }}>
@@ -33,7 +33,7 @@ function Home() {
       </Box>
 
       {/* Features Section */}
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ mb: 8, ml: 30 }}>
         <Grid>
           <Card sx={{ height: '100%', textAlign: 'center', p: 2 }}>
             <CardContent>
@@ -74,19 +74,6 @@ function Home() {
           </Card>
         </Grid>
       </Grid>
-
-      {/* Call to Action */}
-      <Box textAlign="center" sx={{ mt: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Start Tracking Today
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Navigate to Crypto or Stocks to begin exploring the markets.
-        </Typography>
-        <Button variant="contained" size="large" component={Link} to="/favorites">
-          View Your Favorites
-        </Button>
-      </Box>
     </Container>
   );
 }

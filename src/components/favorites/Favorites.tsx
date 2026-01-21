@@ -79,19 +79,19 @@ function Favorites() {
         {favoritesData.map((asset) => (
           <Grid key={asset.symbol}>
             <StyledCard>
-              <CardContent sx={{ flexGrow: 1 }}>
+              <CardContent sx={{ flexGrow: 1, mr: 2 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h6" component="div">
                     {asset.symbol}
                   </Typography>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h5" component="div" sx={{ mr: 2 }}>
+                    <Typography variant="h5" component="div" sx={{ mr: 20, ml: 20 }}>
                       ${asset.price}
                     </Typography>
                     <Typography
                       variant="body2"
                       color={asset.change >= 0 ? 'success.main' : 'error.main'}
-                      sx={{ mr: 2 }}
+                      sx={{ ml: 0 }}
                     >
                       {asset.change >= 0 ? '+' : ''}{asset.change}%
                     </Typography>
